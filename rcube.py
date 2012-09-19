@@ -353,12 +353,12 @@ class MainWindow(window.Window):
       for x in xrange(w):
         q = ((b0 + y) * ix + (l0 + x)) * len('RGBA')
         p = ((pos[1] + y) * bw + (pos[0] + x)) * len('RGBA')
-        ''' # too late ?
-        srgba = [ord(c) for c in d[q:q+len('RGBA')]]
-        drgba = [ord(c) for c in buf[p:p+len('RGBA')]]
-        rgba = [_(srgba[i], drgba[i], srgba[3]) for i in xrange(len('RGBA'))]
-        buf[p:p+len('RGBA')] = map(chr, rgba)
-        '''
+        if False: # 53-54 fps
+          srgba = [ord(c) for c in d[q:q+len('RGBA')]]
+          drgba = [ord(c) for c in buf[p:p+len('RGBA')]]
+          rgba = [_(srgba[i], drgba[i], srgba[3]) for i in xrange(len('RGBA'))]
+          buf[p:p+len('RGBA')] = map(chr, rgba)
+        # 57-60 fps
         sr, sg, sb, sa = [ord(c) for c in d[q:q+len('RGBA')]]
         dr, dg, db, da = [ord(c) for c in buf[p:p+len('RGBA')]]
         r, g, b, a = _(sr, dr, sa), _(sg, dg, sa), _(sb, db, sa), _(sa, da, sa)
