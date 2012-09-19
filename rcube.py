@@ -66,7 +66,7 @@ class MainWindow(window.Window):
     self.instbkwidth, self.instbkheight = 480, 400
     bmplen = (self.instbkwidth / 8) * self.instbkheight
     self.instbkbmp = (ctypes.c_ubyte * bmplen)(*([255] * bmplen))
-    self.ticktimer, self.tick, self.insttimer, self.inst = 0.1, 0.0, 30, 1
+    self.ticktimer, self.tick, self.insttimer, self.inst = 0.5, 0.0, 30, 1
     self.printing, self.solver = 1, deque()
     self.stat = [None, 0, Queue.Queue(512)] # (key(1-9), direc), count, queue
     self.cmax, self.tanim = 18, [6, 3, 1, 3] # frames in rotate moving, speeds
@@ -259,6 +259,7 @@ class MainWindow(window.Window):
       GL_RGBA, GL_UNSIGNED_BYTE, d)
     if mode == 0: # 40-60 fps (fast) but 22-34 fps (6 chars)
       buf = map(chr, col) * (w * h)
+      # self.DrawBlendStringOnBuffer(buf, (w, h), (60, 30), 'NiPpOn')
       s = ('NiPpOn', (60,30), ((0,1), (10,0), (20,1), (32,0), (46,1), (58,0)))
       for i, c in enumerate(s[0]): self.DrawBlendCharOnBuffer(buf, (w, h),
         (s[1][0] + s[2][i][0], s[1][1] + s[2][i][1]), c)
